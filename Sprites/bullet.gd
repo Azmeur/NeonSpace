@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	var velocity = Vector2(cos(rotation), sin(rotation)) * data_speed
 	move_and_collide(velocity * delta)
 
-func hitCollision(body: Node2D) -> void:
+func entityHit(body: Node2D) -> void:
 	if body.data_type == "debree":
 		body.data_health -= data_damage
 		queue_free()
