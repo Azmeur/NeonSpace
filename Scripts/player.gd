@@ -10,6 +10,7 @@ var is_set := false
 var data_armor := 0
 var data_resistance := 0
 var data_attackInterval := 1.0
+var data_damage := 10.0
 var data_health := 100.0
 var data_maxHealth := 100.0
 var data_speed := 300.0
@@ -24,6 +25,8 @@ const turnSpeed = 180.0
 const acceleration = 500.0
 const deceleration = 300.0
 
+# --------------------------------------------------------------
+var attack_cooldown := 0.0
 func _physics_process(delta: float) -> void:
 	# Movement Control
 	if data_health > 0.0:
@@ -40,3 +43,13 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2(cos(rotation), sin(rotation)) * speed
 	
 		move_and_collide(velocity * delta)
+	
+	# Shoot Projectiles
+	if attack_cooldown <= 0 and Input.is_action_pressed("click"):
+		attack_cooldown = data_attackInterval
+		var bullet = object_projectiles[0].instantiate()
+		bullet.global_position = global_position
+		bullet.rotation = rotation
+		node_main.call_deferred("add_child", bullet)
+	else:
+		attack_cooldown = max(attack_cooldown - delta, 0.0)

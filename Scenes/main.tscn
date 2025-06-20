@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://drfpq3mrxqvfi"]
+[gd_scene load_steps=4 format=3 uid="uid://drfpq3mrxqvfi"]
 
 [ext_resource type="Script" path="res://NeonSpace/Scripts/main.gd" id="1_nm8jm"]
+[ext_resource type="PackedScene" uid="uid://bttwof1rjkl1i" path="res://NeonSpace/Scenes/player.tscn" id="2_p0jw0"]
+[ext_resource type="PackedScene" uid="uid://b3bid6tkbj1ea" path="res://NeonSpace/Scenes/bullet.tscn" id="2_rv0t8"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_nm8jm")
+scene_player = ExtResource("2_p0jw0")
+scene_bullet = ExtResource("2_rv0t8")

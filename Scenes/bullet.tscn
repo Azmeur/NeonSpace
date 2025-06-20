@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3bid6tkbj1ea"]
+
+[ext_resource type="Script" path="res://NeonSpace/Sprites/bullet.gd" id="1_lh5ut"]
+[ext_resource type="Texture2D" uid="uid://cliu4j1y0jvv6" path="res://NeonSpace/Sprites/icon.svg" id="1_qdrh3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38fer"]
+size = Vector2(35, 10)
+
+[node name="Bullet" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_lh5ut")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.1)
+texture = ExtResource("1_qdrh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_38fer")

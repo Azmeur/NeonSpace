@@ -1,8 +1,20 @@
 extends Node2D
 
-# Called when the node enters the scene tree for the first time.
+# UNITS
+@export var scene_player : PackedScene
+
+# PROJECTILES
+@export var scene_bullet : PackedScene
+var projectiles : Array
+
 func _ready() -> void:
-	pass # Replace with function body.
+	projectiles.append(scene_bullet)
+	
+	# TEST
+	var player = scene_player.instantiate()
+	player.object_projectiles = projectiles
+	player.node_main = self
+	call_deferred("add_child", player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
