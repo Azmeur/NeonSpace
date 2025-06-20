@@ -1,2 +1,2 @@
 # NeonSpace
-Godot project
+Godot project about a spaceship.
