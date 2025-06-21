@@ -59,3 +59,12 @@ func _physics_process(delta: float) -> void:
 	# Death
 	if data_health <= 0.0:
 		queue_free()
+
+func renderIn(body: Node2D) -> void:
+	if body.data_type == "projectile":
+		body.renderCount += 1
+		body.isRendered = true
+
+func renderOut(body: Node2D) -> void:
+	if body.data_type == "projectile":
+		body.renderCount -= 1

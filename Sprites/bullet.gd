@@ -16,6 +16,8 @@ var data_type := "projectile"
 var source : Node
 var renderCount := 0
 
+var isRendered := false
+
 func _process(delta: float) -> void:
 	var velocity = Vector2(cos(rotation), sin(rotation)) * data_speed
 	move_and_collide(velocity * delta)
