@@ -27,8 +27,8 @@ func _process(delta: float) -> void:
 
 func entityHit(body: Node2D) -> void:
 	if body.data_type == "debree":
-		body.data_health -= data_damage
+		node_gameControl.dealDamage(self, body, data_damage)
 		queue_free()
 	if body.data_type == "unit" and body.data_team != data_team:
-		body.data_health -= data_damage
+		node_gameControl.dealDamage(self, body, data_damage)
 		queue_free()
