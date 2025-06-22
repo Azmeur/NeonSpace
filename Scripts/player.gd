@@ -3,11 +3,12 @@ extends CharacterBody2D
 var entity_projectiles : Array
 
 var node_main : Node
+var node_gameControl : Node
 
 var is_set := false
 
 # GENERAL OBJECT DATA
-var data_armor := 0
+var data_block := 0
 var data_resistance := 0
 var data_attackInterval := 1.0
 var data_damage := 10.0
@@ -67,4 +68,7 @@ func renderIn(body: Node2D) -> void:
 
 func renderOut(body: Node2D) -> void:
 	if body.data_type == "projectile":
-		body.renderCount -= 1
+		if body.renderCount <= 0:
+			body.queueFree()
+		else:
+			body.renderCount -= 1

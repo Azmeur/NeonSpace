@@ -1,7 +1,10 @@
 extends RigidBody2D
 
+var node_main : Node
+var node_gameControl : Node
+
 # GENERAL OBJECT DATA
-var data_armor := 0
+var data_block := 0
 var data_resistance := 0
 var data_attackInterval := 1.0
 var data_damage := 10.0

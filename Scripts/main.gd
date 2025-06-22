@@ -13,7 +13,7 @@ func _ready() -> void:
 	# TEST
 	var player = scene_player.instantiate()
 	player.entity_projectiles = projectiles
-	player.node_main = self
+	inheritNodes(player)
 	player.is_selected = true
 	call_deferred("add_child", player)
 	
@@ -22,9 +22,9 @@ func _ready() -> void:
 	player2.position = Vector2(800, 0)
 	player2.rotation = deg_to_rad(180)
 	player2.data_team = -1
-	player2.node_main = self
+	inheritNodes(player2)
 	call_deferred("add_child", player2)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func inheritNodes(body: Node) -> void:
+	body.node_main = self
+	body.node_gameControl = $Main/GameControl
