@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cliu4j1y0jvv6"
-path="res://.godot/imported/icon.svg-8e4b6e2624c244fcae58c741cb5597ab.ctex"
+uid="uid://b2nh445b2tt8d"
+path="res://.godot/imported/JoystickPack.png-ff571482e5201edf644b6dfa5efd257e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NeonSpace/Sprites/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-8e4b6e2624c244fcae58c741cb5597ab.ctex"]
+source_file="res://textures/VirtualJoystickPack/JoystickPack.png"
+dest_files=["res://.godot/imported/JoystickPack.png-ff571482e5201edf644b6dfa5efd257e.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

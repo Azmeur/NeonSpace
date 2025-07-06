@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhvmw3srnln2b"]
+
+[ext_resource type="Script" uid="uid://c0dlb6by0k11g" path="res://scripts/asteroid.gd" id="1_6mo6b"]
+[ext_resource type="Texture2D" uid="uid://w1uc62bjyf7d" path="res://icon.svg" id="2_t4se3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t4se3"]
+radius = 64.0
+
+[node name="Bullet" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_6mo6b")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="SpriteOutline" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_t4se3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_t4se3")
+
+[node name="Duration" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Duration" to="." method="_on_duration_timeout"]

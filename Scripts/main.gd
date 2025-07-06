@@ -15,6 +15,8 @@ func _ready() -> void:
 	player.entity_projectiles = projectiles
 	inheritNodes(player)
 	player.is_selected = true
+	player.node_movement = $CanvasLayer/Movement
+	player.node_aim = $CanvasLayer/Aim
 	call_deferred("add_child", player)
 	
 	var player2 = scene_player.instantiate()
@@ -23,8 +25,7 @@ func _ready() -> void:
 	player2.rotation = deg_to_rad(180)
 	player2.data_team = -1
 	inheritNodes(player2)
-	call_deferred("add_child", player2)
+	# call_deferred("add_child", player2)
 
 func inheritNodes(body: Node) -> void:
 	body.node_main = self
-	body.node_gameControl = $Main/GameControl

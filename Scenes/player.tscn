@@ -1,16 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://bttwof1rjkl1i"]
+[gd_scene load_steps=6 format=3 uid="uid://hq3pcu2jl2dt"]
 
-[ext_resource type="Script" path="res://NeonSpace/Scripts/player.gd" id="1_llk1h"]
-[ext_resource type="Texture2D" uid="uid://cliu4j1y0jvv6" path="res://NeonSpace/Sprites/icon.svg" id="2_wtwfw"]
+[ext_resource type="Script" uid="uid://cf4s8yuvsqmc4" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://mt7cketo160c" path="res://sprites/Untitled6_20250701221021.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://cn0nbdehp7w72" path="res://sprites/Untitled6_20250701221032.png" id="3_dqkch"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vhxai"]
-radius = 64.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
+radius = 40.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+radius = 2000.0
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_llk1h")
+script = ExtResource("1_3vyb7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_wtwfw")
+[node name="Sprites" type="Node2D" parent="."]
+rotation = 1.5708
+
+[node name="SpriteOutline" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_qhqgy")
+offset = Vector2(0, -20)
+
+[node name="SpriteBase" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_dqkch")
+offset = Vector2(0, -20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_vhxai")
+shape = SubResource("CircleShape2D_qhqgy")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(100, 0)
+rotation = 1.5708
+ignore_rotation = false
+rotation_smoothing_enabled = true
+
+[node name="LaunchPoint1" type="Marker2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["renderAreas"]]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dqkch")
+debug_color = Color(0.760784, 0.176471, 1, 0.0666667)
+
+[connection signal="body_entered" from="Area2D" to="." method="renderIn"]
+[connection signal="body_exited" from="Area2D" to="." method="renderOut"]
