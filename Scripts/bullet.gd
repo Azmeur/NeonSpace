@@ -25,7 +25,6 @@ func _process(delta: float) -> void:
 	var velocity = Vector2(cos(rotation), sin(rotation)) * data_speed
 	
 	move_and_collide(velocity * delta)
-	print(renderCount)
 
 func _on_duration_timeout() -> void:
 	queue_free()

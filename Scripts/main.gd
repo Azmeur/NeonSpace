@@ -2,6 +2,7 @@ extends Node2D
 
 # UNITS
 @export var scene_player : PackedScene
+@export var scene_asteroid : PackedScene
 
 # PROJECTILES
 @export var scene_bullet : PackedScene
@@ -19,13 +20,12 @@ func _ready() -> void:
 	player.node_aim = $CanvasLayer/Aim
 	call_deferred("add_child", player)
 	
-	var player2 = scene_player.instantiate()
-	player2.entity_projectiles = projectiles
-	player2.position = Vector2(800, 0)
-	player2.rotation = deg_to_rad(180)
-	player2.data_team = -1
-	inheritNodes(player2)
-	# call_deferred("add_child", player2)
+	for n in range(50):
+		var asteroid = scene_asteroid.instantiate()
+		var angle = deg_to_rad(randf_range(0.0, 360.0))
+		asteroid.position.x = cos(angle) * randf_range(200.0, 1800.0)
+		asteroid.position.y = sin(angle) * randf_range(200.0, 1800.0)
+		call_deferred("add_child", asteroid)
 
 func inheritNodes(body: Node) -> void:
 	body.node_main = self

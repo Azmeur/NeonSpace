@@ -74,7 +74,6 @@ func renderIn(body: Node2D) -> void:
 func renderOut(body: Node2D) -> void:
 	if body.data_type == "projectile" or body.data_type == "debris":
 		if body.renderCount <= 1:
-			print("killed")
 			body.queue_free()
 		else:
 			body.renderCount -= 1
