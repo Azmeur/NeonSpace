@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://hq3pcu2jl2dt"]
 
 [ext_resource type="Script" uid="uid://cf4s8yuvsqmc4" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://mt7cketo160c" path="res://sprites/Untitled6_20250701221021.png" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://cn0nbdehp7w72" path="res://sprites/Untitled6_20250701221032.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://fh7bavnc2570" path="res://sprites/PlayerGun.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bdxe80v4j4v4a" path="res://sprites/PlayerBase.png" id="3_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
-radius = 40.0
+radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 2000.0
@@ -15,12 +15,15 @@ script = ExtResource("1_3vyb7")
 
 [node name="Sprites" type="Node2D" parent="."]
 rotation = 1.5708
+scale = Vector2(0.726, 0.726)
 
-[node name="SpriteOutline" type="Sprite2D" parent="Sprites"]
+[node name="SpriteGun" type="Sprite2D" parent="Sprites"]
+scale = Vector2(0.578, 0.578)
 texture = ExtResource("2_qhqgy")
-offset = Vector2(0, -20)
 
 [node name="SpriteBase" type="Sprite2D" parent="Sprites"]
+position = Vector2(0, -10)
+scale = Vector2(0.528, 0.528)
 texture = ExtResource("3_dqkch")
 offset = Vector2(0, -20)
 
@@ -40,6 +43,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(581, 115)
 shape = SubResource("CircleShape2D_dqkch")
 debug_color = Color(0.760784, 0.176471, 1, 0.0666667)
 
