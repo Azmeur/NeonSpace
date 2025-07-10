@@ -1,10 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhvmw3srnln2b"]
 
 [ext_resource type="Script" uid="uid://c0dlb6by0k11g" path="res://scripts/asteroid.gd" id="1_6mo6b"]
-[ext_resource type="Texture2D" uid="uid://w1uc62bjyf7d" path="res://icon.svg" id="2_t4se3"]
+[ext_resource type="Texture2D" uid="uid://ja8riveeynxe" path="res://sprites/Asteroid1.png" id="2_6mo6b"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_t4se3"]
-radius = 64.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6mo6b"]
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
 radius = 64.0
@@ -12,28 +13,21 @@ radius = 64.0
 [node name="Asteroid" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 4
+physics_material_override = SubResource("PhysicsMaterial_6mo6b")
 gravity_scale = 0.0
 script = ExtResource("1_6mo6b")
 
 [node name="Sprites" type="Node2D" parent="."]
 
-[node name="SpriteOutline" type="Sprite2D" parent="Sprites"]
-texture = ExtResource("2_t4se3")
+[node name="SpriteBase" type="Sprite2D" parent="Sprites"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_6mo6b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_t4se3")
-debug_color = Color(0, 0.6, 0.701961, 0)
+shape = SubResource("CircleShape2D_6mo6b")
 
 [node name="Duration" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_6mo6b")
-
 [connection signal="timeout" from="Duration" to="." method="_on_duration_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="bump"]
