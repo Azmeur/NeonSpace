@@ -14,20 +14,21 @@ var is_set := false
 # GENERAL OBJECT DATA
 var data_block := 0
 var data_resistance := 0
-var data_attackInterval := 0.3
+var data_attackInterval := 0.1
 var data_damage := 10.0
 var data_health := 100.0
 var data_maxHealth := 100.0
-var data_speed := 300.0
+var data_speed := 500.0
 var data_turnSpeed := 120.0
 var data_team := 0
 var data_type := "unit"
 
 # CUSTOM OBJECT DATA
 var speed = 0.0
-const minSpeed = 20.0
+const minSpeed = 50.0
 const acceleration = 500.0
 const deceleration = 300.0
+var oldDirection = deg_to_rad(-90)
 
 var is_selected := false
 
@@ -53,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	move_and_collide(velocity * delta)
 	
 	# Shoot Projectiles
-	if attack_cooldown <= 0 and node_aim.pressing and is_selected:
+	if attack_cooldown <= 0 and node_aim.posVector != Vector2.ZERO and is_selected:
 		attack_cooldown = data_attackInterval
 		var bullet = entity_projectiles[0].instantiate()
 		bullet.global_position = global_position
@@ -62,7 +63,10 @@ func _physics_process(delta: float) -> void:
 		node_main.call_deferred("add_child", bullet)
 	else:
 		attack_cooldown = max(attack_cooldown - delta, 0.0)
-
+	
+	oldDirection = oldDirection if node_aim.posVector == Vector2.ZERO else node_aim.posVector.angle()
+	$Sprites/SpriteGun.rotation = oldDirection + deg_to_rad(90)
+	
 	# Death
 	if data_health <= 0.0:
 		queue_free()
