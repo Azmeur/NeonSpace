@@ -16,11 +16,11 @@ var data_block := 0
 var data_resistance := 0
 var data_attackInterval := 0.1
 var data_damage := 10.0
-var data_health := 100.0
-var data_maxHealth := 100.0
+var data_health := 500.0
+var data_maxHealth := 500.0
 var data_speed := 500.0
 var data_turnSpeed := 120.0
-var data_team := 0
+var data_team := 1
 var data_type := "unit"
 
 # CUSTOM OBJECT DATA
@@ -51,10 +51,11 @@ func _physics_process(delta: float) -> void:
 	speed = clamp(speed, minSpeed, data_speed)
 	velocity = Vector2(cos(rotation), sin(rotation)) * speed
 	
-	move_and_collide(velocity * delta)
+	if data_health > 0.0:
+		move_and_collide(velocity * delta)
 	
 	# Shoot Projectiles
-	if attack_cooldown <= 0 and node_aim.posVector != Vector2.ZERO and is_selected:
+	if attack_cooldown <= 0 and node_aim.posVector != Vector2.ZERO and is_selected and data_health > 0.0:
 		attack_cooldown = data_attackInterval
 		var bullet = entity_projectiles[0].instantiate()
 		bullet.global_position = global_position
@@ -66,18 +67,40 @@ func _physics_process(delta: float) -> void:
 	
 	oldDirection = oldDirection if node_aim.posVector == Vector2.ZERO else node_aim.posVector.angle()
 	$Sprites/SpriteGun.rotation = oldDirection + deg_to_rad(90)
-	
-	# Death
-	if data_health <= 0.0:
-		queue_free()
+
+var debris_currentWeight = 0.0
+var debris_nextWeight = 0.0
 
 func renderIn(body: Node2D) -> void:
 	if body.data_type == "projectile" or body.data_type == "debris":
 		body.renderCount += 1
 
 func renderOut(body: Node2D) -> void:
+	if body.data_type == "unit" and body.data_team == -2:
+		node_gameControl.entityCount -= 1
+		for member in body.entity_squadMembers:
+			body.entity_squadMembers.erase(member)
+		body.queue_free()
 	if body.data_type == "projectile" or body.data_type == "debris":
 		if body.renderCount <= 1:
+			if body.data_type == "debris":
+				debris_currentWeight += body.mass
+				if debris_currentWeight >= debris_nextWeight:
+					var targAngle = (global_position - body.global_position).normalized().angle()
+					var targLoc = Vector2(cos(targAngle)*node_main.renderDistance, sin(targAngle)*node_main.renderDistance)
+					node_gameControl.spawnAsteroid(global_position+targLoc, debris_nextWeight)
+					debris_currentWeight -= debris_nextWeight
+					debris_nextWeight = lerp(0.7, 4.5, pow(randf(), 2.8))
 			body.queue_free()
 		else:
 			body.renderCount -= 1
+
+func physicalCollision(body: Node2D) -> void:
+	if body.data_type == "projectile" or body.data_type == "debris":
+		if body.data_type == "debris":
+			# death()
+			pass
+
+func death():
+	data_health = -1
+	$Sprites.visible = false
