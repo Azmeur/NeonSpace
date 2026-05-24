@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cqfsbdepu72lu"]
+
+[ext_resource type="Script" uid="uid://cgejbmlwu0252" path="res://Scripts/enemy.gd" id="1_afpow"]
+[ext_resource type="Texture2D" uid="uid://fh7bavnc2570" path="res://Sprites/PlayerGun.png" id="2_287tu"]
+[ext_resource type="Texture2D" uid="uid://bdxe80v4j4v4a" path="res://Sprites/PlayerBase.png" id="3_0830c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+radius = 30.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1916319859]
+script = ExtResource("1_afpow")
+
+[node name="Sprites" type="Node2D" parent="." unique_id=75900136]
+rotation = 1.5708
+scale = Vector2(0.726, 0.726)
+
+[node name="SpriteGun" type="Sprite2D" parent="Sprites" unique_id=1922079534]
+scale = Vector2(0.578, 0.578)
+texture = ExtResource("2_287tu")
+
+[node name="SpriteBase" type="Sprite2D" parent="Sprites" unique_id=1424228215]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, -10)
+scale = Vector2(0.528, 0.528)
+texture = ExtResource("3_0830c")
+offset = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1699351920]
+modulate = Color(1, 0, 0, 1)
+shape = SubResource("CircleShape2D_qhqgy")
+
+[node name="LaunchPoint1" type="Marker2D" parent="." unique_id=984672121]
+
+[node name="PhysicalCollision" type="Area2D" parent="." unique_id=2023975546 groups=["renderAreas"]]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalCollision" unique_id=1617474210]
+shape = SubResource("CircleShape2D_6t5aa")
+debug_color = Color(0.99529725, 0, 0.19541791, 0.0666667)
+
+[node name="RayCastLeft" type="RayCast2D" parent="." unique_id=2013344651]
+position = Vector2(-40, -50)
+rotation = -0.034906585
+target_position = Vector2(160, 0)
+collision_mask = 5
+
+[node name="RayCastLeft2" type="RayCast2D" parent="." unique_id=2002795998]
+position = Vector2(0, -20)
+rotation = -0.034906585
+target_position = Vector2(250, 0)
+collision_mask = 4
+
+[node name="RayCastRight" type="RayCast2D" parent="." unique_id=1168579093]
+position = Vector2(-40, 50)
+rotation = 0.034906585
+target_position = Vector2(160, 0)
+collision_mask = 5
+
+[node name="RayCastRight2" type="RayCast2D" parent="." unique_id=1733277220]
+position = Vector2(0, 20)
+rotation = 0.034906585
+target_position = Vector2(250, 0)
+collision_mask = 5
+
+[node name="RayCastDetection" type="RayCast2D" parent="." unique_id=1998250345]
+target_position = Vector2(0, 0)
+collision_mask = 4
+
+[node name="PursuitCountdown" type="Timer" parent="." unique_id=1497030733]
+
+[connection signal="body_entered" from="PhysicalCollision" to="." method="physicalCollision"]
+[connection signal="timeout" from="PursuitCountdown" to="." method="pursuitLost"]

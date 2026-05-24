@@ -1,51 +1,63 @@
-[gd_scene load_steps=6 format=3 uid="uid://hq3pcu2jl2dt"]
+[gd_scene format=3 uid="uid://hq3pcu2jl2dt"]
 
-[ext_resource type="Script" uid="uid://cf4s8yuvsqmc4" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://fh7bavnc2570" path="res://sprites/PlayerGun.png" id="2_qhqgy"]
-[ext_resource type="Texture2D" uid="uid://bdxe80v4j4v4a" path="res://sprites/PlayerBase.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://cf4s8yuvsqmc4" path="res://Scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://fh7bavnc2570" path="res://Sprites/PlayerGun.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bdxe80v4j4v4a" path="res://Sprites/PlayerBase.png" id="3_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
-radius = 2000.0
+radius = 3000.0
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+radius = 30.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1916319859]
 script = ExtResource("1_3vyb7")
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="." unique_id=75900136]
 rotation = 1.5708
 scale = Vector2(0.726, 0.726)
 
-[node name="SpriteGun" type="Sprite2D" parent="Sprites"]
+[node name="SpriteGun" type="Sprite2D" parent="Sprites" unique_id=1922079534]
 scale = Vector2(0.578, 0.578)
 texture = ExtResource("2_qhqgy")
 
-[node name="SpriteBase" type="Sprite2D" parent="Sprites"]
+[node name="SpriteBase" type="Sprite2D" parent="Sprites" unique_id=1424228215]
 position = Vector2(0, -10)
 scale = Vector2(0.528, 0.528)
 texture = ExtResource("3_dqkch")
 offset = Vector2(0, -20)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1699351920]
 shape = SubResource("CircleShape2D_qhqgy")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=72285033]
 position = Vector2(100, 0)
 rotation = 1.5708
 ignore_rotation = false
+zoom = Vector2(0.5, 0.5)
 rotation_smoothing_enabled = true
 
-[node name="LaunchPoint1" type="Marker2D" parent="."]
+[node name="LaunchPoint1" type="Marker2D" parent="." unique_id=984672121]
 
-[node name="Area2D" type="Area2D" parent="." groups=["renderAreas"]]
+[node name="Area2D" type="Area2D" parent="." unique_id=68010791 groups=["renderAreas"]]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(581, 115)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=213056650]
 shape = SubResource("CircleShape2D_dqkch")
 debug_color = Color(0.760784, 0.176471, 1, 0.0666667)
 
+[node name="PhysicalCollision" type="Area2D" parent="." unique_id=2023975546 groups=["renderAreas"]]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicalCollision" unique_id=1617474210]
+shape = SubResource("CircleShape2D_6t5aa")
+debug_color = Color(0.99529725, 0, 0.19541791, 0.0666667)
+
 [connection signal="body_entered" from="Area2D" to="." method="renderIn"]
 [connection signal="body_exited" from="Area2D" to="." method="renderOut"]
+[connection signal="body_entered" from="PhysicalCollision" to="." method="physicalCollision"]

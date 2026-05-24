@@ -1,37 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://drv6lg8jsn32k"]
+[gd_scene format=3 uid="uid://drv6lg8jsn32k"]
 
-[ext_resource type="Texture2D" uid="uid://w1uc62bjyf7d" path="res://icon.svg" id="1_mkf8s"]
-[ext_resource type="Script" uid="uid://bv62uyn3cilq6" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Script" uid="uid://bv62uyn3cilq6" path="res://Scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://bqgkuxjcw50nd" path="res://Sprites/Bullet.png" id="2_oduel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y25gk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l5glv"]
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="Area2D" unique_id=1439065641]
 collision_layer = 2
-collision_mask = 0
-gravity_scale = 0.0
+collision_mask = 5
 script = ExtResource("1_y25gk")
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="." unique_id=2028966993]
 
-[node name="SpriteOutline" type="Sprite2D" parent="Sprites"]
-scale = Vector2(0.171, 0.171)
-texture = ExtResource("1_mkf8s")
+[node name="SpriteOutline" type="Sprite2D" parent="Sprites" unique_id=302133350]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_oduel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1584522698]
 shape = SubResource("CircleShape2D_y25gk")
 
-[node name="Duration" type="Timer" parent="."]
+[node name="Duration" type="Timer" parent="." unique_id=1953029728]
 wait_time = 5.0
 one_shot = true
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1709501235]
 shape = SubResource("CircleShape2D_l5glv")
 
+[connection signal="body_entered" from="." to="." method="hit"]
 [connection signal="timeout" from="Duration" to="." method="_on_duration_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="hit"]
