@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://daxu4312ti2fo"]
+
+[ext_resource type="Script" uid="uid://5hnhts1jmt1l" path="res://Scripts/enemy_ship_squad.gd" id="1_w2kt0"]
+[ext_resource type="PackedScene" uid="uid://cqfsbdepu72lu" path="res://Scenes/enemy.tscn" id="2_x76om"]
+
+[node name="Enemy_ShipSquad" type="Node2D" unique_id=74843881]
+script = ExtResource("1_w2kt0")
+scene_enemy = ExtResource("2_x76om")
+
+[node name="PursuitTimer" type="Timer" parent="." unique_id=1847797529]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhvmw3srnln2b"]
+[gd_scene format=3 uid="uid://dhvmw3srnln2b"]
 
-[ext_resource type="Script" uid="uid://c0dlb6by0k11g" path="res://scripts/asteroid.gd" id="1_6mo6b"]
-[ext_resource type="Texture2D" uid="uid://ja8riveeynxe" path="res://sprites/Asteroid1.png" id="2_6mo6b"]
+[ext_resource type="Script" uid="uid://c0dlb6by0k11g" path="res://Scripts/asteroid.gd" id="1_6mo6b"]
+[ext_resource type="Texture2D" uid="uid://ja8riveeynxe" path="res://Sprites/Asteroid1.png" id="2_6mo6b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6mo6b"]
 friction = 0.0
@@ -10,23 +10,24 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
 radius = 64.0
 
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="RigidBody2D" unique_id=1557597213]
+z_index = 1
 collision_layer = 4
 collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_6mo6b")
 gravity_scale = 0.0
 script = ExtResource("1_6mo6b")
 
-[node name="Sprites" type="Node2D" parent="."]
+[node name="Sprites" type="Node2D" parent="." unique_id=1740084169]
 
-[node name="SpriteBase" type="Sprite2D" parent="Sprites"]
+[node name="SpriteBase" type="Sprite2D" parent="Sprites" unique_id=1498512573]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_6mo6b")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1624861820]
 shape = SubResource("CircleShape2D_6mo6b")
 
-[node name="Duration" type="Timer" parent="."]
+[node name="Duration" type="Timer" parent="." unique_id=664691660]
 wait_time = 5.0
 one_shot = true
 
